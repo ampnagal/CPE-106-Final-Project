@@ -1,5 +1,5 @@
 from flask import Flask, render_template, request, redirect, url_for, session
-import pymongo 
+from pymongo import MongoClient
 from werkzeug.security import generate_password_hash, check_password_hash
 from jinja2 import FileSystemLoader
 import os
@@ -11,8 +11,7 @@ app.secret_key = "your_secret_key"
 app.jinja_loader = FileSystemLoader(["HTML Template", "templates"])
 
 # Connect to MongoDB
-
-client = pymongo.MongoClient(os.getenv("MONGO_URI"))
+client = MongoClient("mongodb://localhost:27017/")
 db = client["voters"]
 candidates_collection = db["candidates"]
 votes_collection = db["votes"]
